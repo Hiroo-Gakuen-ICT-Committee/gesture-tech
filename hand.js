@@ -1,7 +1,7 @@
 const video = document.getElementById('input');
 const canvas = document.getElementById('output');
 const ctx = canvas.getContext('2d');
-
+var all = [];
 //関連ファイルの読み込み
 const config = {
   locateFile: file => `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`
@@ -40,9 +40,11 @@ hands.onResults(results => {
       console.log("右手です");
     }
   }
+
   if (results.multiHandLandmarks) {
     results.multiHandLandmarks.forEach(marks => {
       // 緑色の線で骨組みを可視化
+      all.push(marks);
       drawConnectors(ctx, marks, HAND_CONNECTIONS, {
         color: '#0f0'
       });
@@ -53,7 +55,7 @@ hands.onResults(results => {
       });
     })
   }
-
+  console.log(all);
 });
 
 
